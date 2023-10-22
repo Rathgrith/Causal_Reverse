@@ -16,7 +16,7 @@ def parse_args():
     parser.add_argument("--learning_rate_multiplier", type=float, default=0.1)
     parser.add_argument("--batch_size", type=int, default=1)
     parser.add_argument("--n_epochs", type=int, default=10)
-    parser.add_argument("--dataset_name", type=str, default="june_version_7921032488")
+    parser.add_argument("--dataset_name", type=str, default="test8275234424")
     parser.add_argument("--num_finetunes", type=int, default=1)
 
     return parser.parse_args()

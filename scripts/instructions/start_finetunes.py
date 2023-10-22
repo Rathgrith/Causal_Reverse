@@ -1,7 +1,8 @@
 """
 Start finetunes for reverse experiments.
 """
-
+import sys
+sys.path.append('/mnt/c/Users/50502/Desktop/ECE598Project/reversal_curse')
 import argparse
 import os
 
