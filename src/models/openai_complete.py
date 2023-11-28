@@ -164,7 +164,7 @@ class OpenAIAPI(Model):
     def generate(
         self,
         inputs,
-        max_tokens=500,
+        max_tokens=100,
         stop_string=None,
         temperature=0,
         n_choices=1,

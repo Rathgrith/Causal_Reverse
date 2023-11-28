@@ -1,0 +1,50 @@
+import json
+import string
+
+# Path to the JSON Lines file
+file_path = './data/reverse_experiments/june_version_7921032488/d2p_prompts_test.jsonl'
+
+# Output directory where you want to save the updated file
+# Make sure this directory exists or the script will throw an error
+output_directory = 'updated_dataset_test'
+
+# Initialize an empty list to store all the data
+data = []
+
+# Define a translation table to remove punctuation
+translator = str.maketrans('', '', string.punctuation)
+
+# Read the JSON Lines data from a file
+with open(file_path, 'r') as file:
+    for line in file:
+        # Parse each line as JSON
+        item = json.loads(line)
+        # Remove punctuation from the completion
+        item['completion'] = item['completion'].translate(translator).strip()
+        # Append the modified item to the list
+        data.append(item)
+
+# Create a dictionary to hold the first prompt for each completion
+first_prompt_for_completion = {}
+
+# Iterate over each item in the list
+for item in data:
+    completion = item['completion'].strip()
+    prompt = item['prompt'].strip()
+    
+    # If the completion is already in the dictionary, update the prompt to the first one
+    if completion in first_prompt_for_completion:
+        item['prompt'] = first_prompt_for_completion[completion]
+    else:
+        # Otherwise, add the prompt to the dictionary
+        first_prompt_for_completion[completion] = prompt
+
+# Now, we'll write the updated data back to a new JSON Lines file in the specified output directory
+output_file_path = output_directory + 'updated_data.jsonl'
+with open(output_file_path, 'w') as file:
+    for item in data:
+        # Write each JSON object to a single line in the file
+        file.write(json.dumps(item) + '\n')
+
+# Print the path to the updated file
+print(f"Updated data has been saved to {output_file_path}")
